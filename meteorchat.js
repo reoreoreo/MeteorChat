@@ -1,8 +1,8 @@
 
-// MongoDB コレクションオブジェクト定義
 Messagelog = new Meteor.Collection("messagelog");
 
 if (Meteor.is_client) {
+    // メッセージ履歴の取得
     Template.messages.messagelog = function () {
         var msglog =  Messagelog.find(
         {},
@@ -13,9 +13,12 @@ if (Meteor.is_client) {
 
         }
         ).fetch();
+        
+        // 上位15件を返却
         return msglog.slice(0, 15);
     };
     
+    // submit ボタン押下時の処理
     Template.post_form.events = {
         'click input#submit': function () {
             FB.api('/me&locale=ja_JP', function(response) {
@@ -24,12 +27,12 @@ if (Meteor.is_client) {
                 id = response.id;
                 
                 nowDate    = new Date();
-                var year   = nowDate.getFullYear(); // 年 
-                var month  = nowDate.getMonth() + 1; // 月 
-                var date   = nowDate.getDate(); // 日 
-                var hour   = nowDate.getHours(); // 時 
-                var min    = nowDate.getMinutes(); // 分 
-                var sec    = nowDate.getSeconds(); // 秒 
+                var year   = nowDate.getFullYear();
+                var month  = nowDate.getMonth() + 1; 
+                var date   = nowDate.getDate(); 
+                var hour   = nowDate.getHours(); 
+                var min    = nowDate.getMinutes(); 
+                var sec    = nowDate.getSeconds(); 
                 
                 var post_date = year + "/" + month + "/" + date + " "
                 + hour + ":" + min + ":" + sec;
@@ -48,10 +51,10 @@ if (Meteor.is_client) {
     };
 }
 
-// On server startup, create some players if the database is empty.
+
 if (Meteor.is_server) {
     Meteor.startup(function () {
         // チャットログを全消去
-        Messagelog.remove({});        
+        //Messagelog.remove({});
     });
 }

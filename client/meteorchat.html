@@ -4,37 +4,7 @@
     <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
     <script src="http://connect.facebook.net/ja_JP/all.js"></script>
-    <script type="text/javascript">
-        $(function(){            
-            var APP_ID = '431711670200752'; 
-            FB.init({
-                appId: APP_ID,
-                status: true,
-                cookie: true,
-                xfbml: true,
-                oauth: true
-            });
-            
-            FB.getLoginStatus(function(response) {
-                if (response.session) {
-                }else{
-                    FB.login(function(response) {
-                        FB.api('/me&locale=ja_JP', function(response) {
-                            var img_url = "https://graph.facebook.com/"+ response.id +"/picture";
-                            $('#msg_frm').append("<img src='" + img_url + "'>");
-                        });
-                    },{});
-                }
-            });
-            
-            $('#messagelog').live('DOMNodeInserted', function(event) {
-                $('#messagelog').listview('refresh');
-                $('input#message_text').val('');
-            $('input#message_text').focus();
-            });
-        });
-        
-    </script>
+    <script src="fb.js"></script>
 </head>
 
 <body>
